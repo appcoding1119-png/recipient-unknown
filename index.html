@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>수취인 불명</title>
+
+  <!-- 서체 -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Noto Serif KR', serif;
+      background: #fafafa;
+      color: #111;
+    }
+
+    /* 전체 래퍼 */
+    .wrap {
+      max-width: 720px;
+      margin: 160px auto;
+      padding: 0 24px;
+    }
+
+    /* 투명 상자 */
+    .box {
+      padding: 64px 56px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+
+      border-radius: 18px;
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.04),
+        0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    /* 제목 */
+    .title {
+      font-size: 26px;
+      letter-spacing: 0.14em;
+      margin-bottom: 64px;
+      color: #111;
+    }
+
+    /* 설명 문장 */
+    .desc {
+      font-size: 19px;
+      line-height: 1.9;
+      color: #222;
+    }
+
+    /* CTA 영역 */
+    .cta {
+      margin-top: 56px;
+    }
+
+    .cta a {
+      font-size: 15px;
+      color: #555;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    .cta a:hover {
+      border-bottom: 1px solid #555;
+    }
+
+    .arrow {
+      margin-right: 8px;
+      color: #777;
+    }
+
+    /* ⚠️ 경고 문구 */
+    .warning {
+      margin-top: 32px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #888;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="box">
+
+      <div class="title">수취인 불명</div>
+
+      <p class="desc">
+        누군가는<br>
+        끝내 보내지 못한 말을<br>
+        여기에 두고 갑니다.
+      </p>
+
+      <div class="cta">
+        <a href="submit.html">
+          <span class="arrow">→</span>편지 남기기
+        </a>
+      </div>
+
+      <div class="warning">
+        ※ 입력 중 오류가 발생할 수 있으니 메모장에 먼저 작성 후<br>
+        &nbsp;&nbsp;복사하여 붙여넣기를 권장합니다.
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
+
