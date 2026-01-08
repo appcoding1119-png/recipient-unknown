@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>편지 맡기기 | 수취인 불명</title>
 
-  <!-- 모바일 대응 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- 서체 -->
@@ -32,7 +31,6 @@
       padding: 56px 48px;
       background: rgba(255, 255, 255, 0.72);
       backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
       border-radius: 18px;
       box-shadow:
         0 8px 24px rgba(0, 0, 0, 0.04),
@@ -54,8 +52,8 @@
 
     label {
       font-size: 15px;
-      margin-bottom: 6px;
       display: block;
+      margin-bottom: 6px;
     }
 
     .hint {
@@ -69,7 +67,7 @@
     textarea {
       width: 100%;
       font-family: inherit;
-      font-size: 16px; /* 🔑 자동 확대 방지 */
+      font-size: 16px;
       padding: 10px 0;
       border: none;
       border-bottom: 1px solid #ddd;
@@ -82,22 +80,11 @@
       resize: vertical;
     }
 
-    .char-limit {
-      font-size: 13px;
-      color: #777;
+    .char-count {
       margin-top: 6px;
-    }
-
-    input[type="file"] {
-      margin-top: 10px;
-      font-size: 15px;
-    }
-
-    .photo-note {
       font-size: 13px;
       color: #777;
-      margin-top: 8px;
-      line-height: 1.6;
+      text-align: right;
     }
 
     .note {
@@ -117,7 +104,6 @@
       background: none;
       border: none;
       color: #555;
-      padding: 0;
       cursor: pointer;
     }
 
@@ -125,7 +111,26 @@
       margin-right: 6px;
     }
 
-    /* 📱 모바일 추가 보정 */
+    /* 로딩 화면 */
+    .loading {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(250,250,250,0.9);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      color: #555;
+      letter-spacing: 0.1em;
+    }
+
+    .loading.active {
+      display: flex;
+    }
+
     @media (max-width: 480px) {
       .wrap {
         padding: 24px 14px;
@@ -137,48 +142,54 @@
 
       .title {
         font-size: 20px;
-        margin-bottom: 32px;
       }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- 로딩 -->
+  <div class="loading" id="loading">
+    편지를 맡기는 중입니다…
+  </div>
+
   <div class="wrap">
     <div class="box">
 
       <div class="title">수취인 불명</div>
 
-      <form>
+      <form id="letterForm">
 
         <div class="field">
           <label>받는 사람</label>
-          <div class="hint">실제 이름은 사용할 수 없습니다.</div>
-          <input type="text" placeholder="너에게">
+          <div class="hint">실제 사람 이름은 사용할 수 없습니다.</div>
+          <input type="text" id="to" placeholder="너에게" required>
         </div>
 
         <div class="field">
           <label>보내는 사람</label>
-          <div class="hint">‘나’, ‘익명’처럼 적어주세요.</div>
-          <input type="text" placeholder="나">
+          <div class="hint">‘나’, ‘익명’, ‘첫사랑’처럼 적어주세요.</div>
+          <input type="text" id="from" placeholder="나" required>
         </div>
 
         <div class="field">
           <label>편지</label>
-          <div class="hint">메모장에 먼저 작성 후 붙여넣기를 권장합니다.</div>
-          <textarea maxlength="4000"></textarea>
-          <div class="char-limit">최대 4,000자</div>
-        </div>
-
-        <div class="field">
-          <label>기억 덧붙이기 (선택)</label>
-          <input type="file" accept="image/*" multiple>
-          <div class="photo-note">최대 2장 / 얼굴은 모자이크 처리</div>
+          <div class="hint">
+            ※ 입력 중 오류가 발생할 수 있으니 메모장에 먼저 작성 후 붙여넣기를 권장합니다.
+          </div>
+          <textarea id="letter" maxlength="4000"
+            placeholder="끝내 보내지 못한 말을 남겨주세요." required></textarea>
+          <div class="char-count">
+            <span id="currentCount">0</span> / 4000자
+          </div>
         </div>
 
         <div class="note">
-          ※ 작성된 편지는 운영자의 선택에 따라 공개될 수 있으며,<br>
-          공개 이후 삭제는 어렵습니다.
+          ※ 작성하신 편지는 운영자의 선택에 따라 세상에 공개될 수 있습니다.<br>
+          ※ 한 번 공개된 편지는 삭제가 어렵습니다.<br>
+          ※ 욕설·비방·혐오 표현은 게시되지 않을 수 있으며<br>
+          &nbsp;&nbsp;&nbsp;의미를 해치지 않는 범위에서 일부 수정될 수 있습니다.
         </div>
 
         <div class="cta">
@@ -191,7 +202,41 @@
 
     </div>
   </div>
+
+  <script>
+    const form = document.getElementById("letterForm");
+    const loading = document.getElementById("loading");
+    const textarea = document.getElementById("letter");
+    const counter = document.getElementById("currentCount");
+
+    // 글자수 카운트
+    textarea.addEventListener("input", () => {
+      counter.textContent = textarea.value.length;
+    });
+
+    // 제출
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      loading.classList.add("active");
+
+      const data = {
+        to: document.getElementById("to").value,
+        from: document.getElementById("from").value,
+        letter: textarea.value
+      };
+
+      await fetch("https://script.google.com/macros/s/AKfycbx9Kni4bc4CNF2qdpa8s80bX0S0Yxibu0yZ7O8VnMxiYpzO-HvWsxXXuqRy_yNxipRL/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+      });
+
+      window.location.href = "done.html";
+    });
+  </script>
+
 </body>
 </html>
+
+
 
 
