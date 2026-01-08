@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <title>편지 맡기기 | 수취인 불명</title>
 
+  <!-- 모바일 대응 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <!-- 서체 -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
 
@@ -17,13 +20,16 @@
 
     .wrap {
       max-width: 720px;
-      margin: 140px auto;
-      padding: 0 24px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 40px 20px;
+      display: flex;
+      align-items: center;
     }
 
-    /* 투명 상자 */
     .box {
-      padding: 64px 56px;
+      width: 100%;
+      padding: 56px 48px;
       background: rgba(255, 255, 255, 0.72);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
@@ -34,30 +40,28 @@
     }
 
     .title {
-      font-size: 24px;
+      font-size: 22px;
       letter-spacing: 0.14em;
-      margin-bottom: 56px;
+      margin-bottom: 40px;
     }
 
-    /* 필드 묶음 (작은 상자 느낌) */
     .field {
-      margin-bottom: 56px;
-      padding: 32px 28px;
+      margin-bottom: 40px;
+      padding: 24px 22px;
       background: rgba(255,255,255,0.6);
       border-radius: 12px;
     }
 
     label {
-      display: block;
       font-size: 15px;
-      margin-bottom: 8px;
-      color: #222;
+      margin-bottom: 6px;
+      display: block;
     }
 
     .hint {
       font-size: 13px;
       color: #777;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       line-height: 1.6;
     }
 
@@ -65,77 +69,76 @@
     textarea {
       width: 100%;
       font-family: inherit;
-      font-size: 15px;
-      padding: 12px 0;
+      font-size: 16px; /* 🔑 자동 확대 방지 */
+      padding: 10px 0;
       border: none;
       border-bottom: 1px solid #ddd;
       background: transparent;
-      color: #111;
-    }
-
-    input:focus,
-    textarea:focus {
-      outline: none;
-      border-bottom-color: #999;
     }
 
     textarea {
-      min-height: 180px;
-      resize: vertical;
+      min-height: 200px;
       line-height: 1.8;
+      resize: vertical;
     }
 
-    /* 글자수 안내 */
     .char-limit {
-      margin-top: 8px;
       font-size: 13px;
       color: #777;
+      margin-top: 6px;
     }
 
-    /* 사진 */
     input[type="file"] {
-      margin-top: 12px;
-      font-size: 14px;
-      color: #555;
+      margin-top: 10px;
+      font-size: 15px;
     }
 
     .photo-note {
-      margin-top: 10px;
       font-size: 13px;
-      line-height: 1.6;
       color: #777;
+      margin-top: 8px;
+      line-height: 1.6;
     }
 
-    /* 안내 문구 */
     .note {
       font-size: 13px;
       line-height: 1.7;
       color: #666;
-      margin-top: 56px;
+      margin-top: 32px;
     }
 
-    /* CTA */
     .cta {
-      margin-top: 56px;
+      margin-top: 40px;
     }
 
     .cta button {
       font-family: inherit;
-      font-size: 15px;
+      font-size: 16px;
       background: none;
       border: none;
       color: #555;
-      cursor: pointer;
       padding: 0;
-    }
-
-    .cta button:hover {
-      border-bottom: 1px solid #555;
+      cursor: pointer;
     }
 
     .arrow {
-      margin-right: 8px;
-      color: #777;
+      margin-right: 6px;
+    }
+
+    /* 📱 모바일 추가 보정 */
+    @media (max-width: 480px) {
+      .wrap {
+        padding: 24px 14px;
+      }
+
+      .box {
+        padding: 40px 24px;
+      }
+
+      .title {
+        font-size: 20px;
+        margin-bottom: 32px;
+      }
     }
   </style>
 </head>
@@ -148,54 +151,34 @@
 
       <form>
 
-        <!-- 1. 받는 사람 (위로 이동) -->
         <div class="field">
           <label>받는 사람</label>
-          <div class="hint">
-            실제 이름은 사용할 수 없습니다.<br>
-            ‘너에게’, ‘첫사랑’, ‘그 사람’처럼 표현해주세요.
-          </div>
+          <div class="hint">실제 이름은 사용할 수 없습니다.</div>
           <input type="text" placeholder="너에게">
         </div>
 
-        <!-- 2. 보내는 사람 -->
         <div class="field">
           <label>보내는 사람</label>
-          <div class="hint">
-            실제 사람 이름은 익명으로 처리됩니다.<br>
-            ‘나’, ‘익명’, ‘첫사랑’처럼 적어주세요.
-          </div>
+          <div class="hint">‘나’, ‘익명’처럼 적어주세요.</div>
           <input type="text" placeholder="나">
         </div>
 
-        <!-- 3. 편지 -->
         <div class="field">
           <label>편지</label>
-          <div class="hint">
-            ※ 입력 중 오류가 발생할 수 있으니 메모장에 먼저 작성 후 붙여넣기를 권장합니다.
-          </div>
-          <textarea maxlength="4000" placeholder="끝내 보내지 못한 말을 남겨주세요."></textarea>
-          <div class="char-limit">
-            최대 4,000자까지 작성할 수 있습니다.
-          </div>
+          <div class="hint">메모장에 먼저 작성 후 붙여넣기를 권장합니다.</div>
+          <textarea maxlength="4000"></textarea>
+          <div class="char-limit">최대 4,000자</div>
         </div>
 
-        <!-- 4. 사진 -->
         <div class="field">
           <label>기억 덧붙이기 (선택)</label>
           <input type="file" accept="image/*" multiple>
-          <div class="photo-note">
-            최대 2장까지 첨부할 수 있습니다.<br>
-            사진은 자동으로 압축되어 저장됩니다.<br>
-            얼굴이 포함된 사진은 모자이크 처리됩니다.
-          </div>
+          <div class="photo-note">최대 2장 / 얼굴은 모자이크 처리</div>
         </div>
 
         <div class="note">
-          ※ 작성하신 편지는 운영자의 선택에 따라 세상에 공개될 수 있습니다.<br>
-          ※ 한 번 세상에 공개된 편지는 삭제가 어렵습니다.<br>
-          ※ 욕설, 비방, 혐오 표현이 포함된 내용은 게시되지 않을 수 있으며,<br>
-          &nbsp;&nbsp;&nbsp;편지 내용은 의미를 해치지 않는 범위에서 일부 수정될 수 있습니다.
+          ※ 작성된 편지는 운영자의 선택에 따라 공개될 수 있으며,<br>
+          공개 이후 삭제는 어렵습니다.
         </div>
 
         <div class="cta">
@@ -210,4 +193,5 @@
   </div>
 </body>
 </html>
+
 
