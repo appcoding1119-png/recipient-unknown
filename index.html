@@ -3,11 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>수취인 불명</title>
-
-  <!-- 모바일 대응 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- 서체 -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
@@ -27,34 +24,26 @@
       align-items: center;
     }
 
-    /* 투명 상자 */
     .box {
       width: 100%;
       padding: 72px 56px;
-      background: rgba(255, 255, 255, 0.72);
+      background: rgba(255,255,255,0.72);
       backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
       border-radius: 18px;
-      box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.04),
-        0 1px 3px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.04);
     }
 
-    /* 제목 */
     .title {
       font-size: 28px;
       letter-spacing: 0.18em;
       margin-bottom: 64px;
     }
 
-    /* 설명 */
     .desc {
       font-size: 19px;
       line-height: 1.9;
-      color: #222;
     }
 
-    /* CTA */
     .cta {
       margin-top: 56px;
     }
@@ -63,45 +52,16 @@
       font-size: 16px;
       color: #555;
       text-decoration: none;
-      display: inline-flex;
-      align-items: center;
     }
 
     .cta a:hover {
       border-bottom: 1px solid #555;
     }
 
-    .arrow {
-      margin-right: 8px;
-      color: #777;
-    }
-
-    /* 하단 경고 문구 */
-    .notice {
-      margin-top: 48px;
-      font-size: 13px;
-      color: #777;
-      line-height: 1.6;
-    }
-
-    /* 📱 모바일 보정 */
     @media (max-width: 480px) {
-      .wrap {
-        padding: 24px 14px;
-      }
-
-      .box {
-        padding: 48px 28px;
-      }
-
-      .title {
-        font-size: 24px;
-        margin-bottom: 48px;
-      }
-
-      .desc {
-        font-size: 17px;
-      }
+      .box { padding: 48px 28px; }
+      .title { font-size: 24px; }
+      .desc { font-size: 17px; }
     }
   </style>
 </head>
@@ -109,7 +69,6 @@
 <body>
   <div class="wrap">
     <div class="box">
-
       <div class="title">수취인 불명</div>
 
       <p class="desc">
@@ -119,18 +78,12 @@
       </p>
 
       <div class="cta">
-        <a href="submit.html">
-          <span class="arrow">→</span>편지 남기기
-        </a>
+        <a href="submit.html">→ 편지 남기기</a>
       </div>
-
-      <div class="notice">
-        ※ 입력 중 예기치 않은 오류가 발생할 수 있습니다.<br>
-        편지는 메모장 등에 먼저 작성한 후 복사하여 붙여넣어 주세요.
-      </div>
-
     </div>
   </div>
 </body>
 </html>
+
+
 
