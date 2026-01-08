@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <title>수취인 불명</title>
 
+  <!-- 모바일 대응 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <!-- 서체 -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
 
@@ -15,20 +18,22 @@
       color: #111;
     }
 
-    /* 전체 래퍼 */
     .wrap {
       max-width: 720px;
-      margin: 160px auto;
-      padding: 0 24px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 40px 20px;
+      display: flex;
+      align-items: center;
     }
 
     /* 투명 상자 */
     .box {
-      padding: 64px 56px;
+      width: 100%;
+      padding: 72px 56px;
       background: rgba(255, 255, 255, 0.72);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
-
       border-radius: 18px;
       box-shadow:
         0 8px 24px rgba(0, 0, 0, 0.04),
@@ -37,29 +42,29 @@
 
     /* 제목 */
     .title {
-      font-size: 26px;
-      letter-spacing: 0.14em;
+      font-size: 28px;
+      letter-spacing: 0.18em;
       margin-bottom: 64px;
-      color: #111;
     }
 
-    /* 설명 문장 */
+    /* 설명 */
     .desc {
       font-size: 19px;
       line-height: 1.9;
       color: #222;
     }
 
-    /* CTA 영역 */
+    /* CTA */
     .cta {
       margin-top: 56px;
     }
 
     .cta a {
-      font-size: 15px;
+      font-size: 16px;
       color: #555;
       text-decoration: none;
-      border-bottom: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
     }
 
     .cta a:hover {
@@ -71,12 +76,32 @@
       color: #777;
     }
 
-    /* ⚠️ 경고 문구 */
-    .warning {
-      margin-top: 32px;
+    /* 하단 경고 문구 */
+    .notice {
+      margin-top: 48px;
       font-size: 13px;
+      color: #777;
       line-height: 1.6;
-      color: #888;
+    }
+
+    /* 📱 모바일 보정 */
+    @media (max-width: 480px) {
+      .wrap {
+        padding: 24px 14px;
+      }
+
+      .box {
+        padding: 48px 28px;
+      }
+
+      .title {
+        font-size: 24px;
+        margin-bottom: 48px;
+      }
+
+      .desc {
+        font-size: 17px;
+      }
     }
   </style>
 </head>
@@ -99,9 +124,9 @@
         </a>
       </div>
 
-      <div class="warning">
-        ※ 입력 중 오류가 발생할 수 있으니 메모장에 먼저 작성 후<br>
-        &nbsp;&nbsp;복사하여 붙여넣기를 권장합니다.
+      <div class="notice">
+        ※ 입력 중 예기치 않은 오류가 발생할 수 있습니다.<br>
+        편지는 메모장 등에 먼저 작성한 후 복사하여 붙여넣어 주세요.
       </div>
 
     </div>
